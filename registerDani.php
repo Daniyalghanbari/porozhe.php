@@ -5,11 +5,10 @@
 /*
 | request 
 */
-$requestUsername = $_REQUEST['username'];
-$requestPassword = $_REQUEST['password'];
+$requestUsername = $_REQUEST['username'] ?? null;
+$requestPassword = $_REQUEST['password'] ?? null;
 
-include "./register.html";
-
+include "./view/register.html";
 
 /*
 | logic
@@ -62,5 +61,4 @@ function select($query){
 
    return $data->fetchAll();
 }
-
 
