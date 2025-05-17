@@ -1,17 +1,11 @@
-
-
-
+ 
 <?php
 session_start();
 
-echo "<pre>";
+if(empty($_SESSION['user_id'])){
 
-var_dump("wellcome");
+    header("Location: login.php");
+    exit();
+}
 
-echo "</pre>";
-echo "_SESSION =>" . $_SESSION['user_id'];
-
-
-include "view/index.html";
-
-
+include "view/index.ahtml";
