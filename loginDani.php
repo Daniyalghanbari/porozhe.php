@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 include "./helper.php";
 include "./view/login.html";
@@ -35,4 +35,4 @@ if(empty($userData)){
 */
 $_SESSION['user_id'] = $userData['id'];
 
-header("Location: index.php");
+header("Location: admin.php");
