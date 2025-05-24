@@ -1,11 +1,7 @@
- 
+
 <?php
 session_start();
 
-if(empty($_SESSION['user_id'])){
+include "view/client.php";
 
-    header("Location: login.php");
-    exit();
-}
 
-include "view/index.ahtml";
