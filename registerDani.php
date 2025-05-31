@@ -1,47 +1,62 @@
- <?php
+
+
+<?php
 session_start();
+
 include "./helper.php";
-include_once "./view/register.php";
+
 
 $connection = connetion();
 
-$_SEESSION['error'] = "test222";
-
-
 /*
-| request 
+| request param
 */
 $requestUsername  = $_REQUEST['username'] ?? null;
 $requestEmail     = $_REQUEST['email'] ?? null;
 $requestPhone     = $_REQUEST['phone'] ?? null;
 $requestPassword  = $_REQUEST['password'] ?? null;
 
-if(empty($requestUsername) 
-|| empty($requestPassword)
-|| empty($requestEmail)
-|| empty($requestPhone)
-){
+if($_SERVER['REQUEST_METHOD']== "POST"){
 
-    echo "empty username or password";
-    return;
+        /* ----------------------------
+        | validation request
+           ---------------------------- */
+        if(empty($requestUsername) 
+        || empty($requestPassword)
+        || empty($requestEmail)
+        || empty($requestPhone)
+        ){
+            $_SESSION['error'] = "نام کاربری و کلمه عبور نمیتواند خالی باشد";
+        }
+
+        /* ----------------------------
+        | isset username
+           ---------------------------- */
+        if(!empty($requestUsername)){
+
+            $userData = select($connection,"SELECT * FROM `users` WHERE `username` = '$requestUsername'; ")[0] ?? null;
+
+        /* ----------------------------
+        | validate user
+           ---------------------------- */
+            if(!empty($userData)){
+                
+                $_SESSION['error'] = "کاربری با این نام کاربری وجود دارد";
+            }
+
+
+        /* ----------------------------
+        | execute register
+           ---------------------------- */
+            if(empty($userData)){
+
+                execute($connection,
+                    "INSERT INTO `users` (`id`, `username`, `password`, `email`, `phone`) 
+                                VALUES (NULL, '$requestUsername', $requestPassword, '$requestEmail', '$requestPhone'); " 
+                    );
+                }
+            }
 }
 
-$userData = select($connection,"SELECT * FROM `users` WHERE `username` = '$requestUsername'; ")[0] ?? null;
-if(!empty($userData)){
-    
-    echo "username is not unique";
-    return;
-}
 
-
-/*
-| logic
-*/
-if(!empty(select($connection,"SELECT * FROM `users` WHERE `username` = '$requestUsername'; ")[0] ?? NULL)){
-    return;
-}
-
-execute($connection,
-"INSERT INTO `users` (`id`, `username`, `password`, `email`, `phone`) 
-              VALUES (NULL, '$requestUsername', $requestPassword, '$requestEmail', '$requestPhone'); " 
-);
+include "./view/register.php";
