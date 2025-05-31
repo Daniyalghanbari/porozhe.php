@@ -1,4 +1,13 @@
-<?php
+ <?php
+
+function truncateWords($text, $limit) {
+    $words = explode(' ', $text); // تبدیل متن به آرایه‌ای از کلمات
+    if (count($words) > $limit) {
+        $limitedWords = array_slice($words, 0, $limit); // انتخاب 50 کلمه اول
+        return implode(' ', $limitedWords) . '...'; // ترکیب مجدد و افزودن "..."
+    }
+    return $text; // اگر متن کمتر از 50 کلمه باشد، همان را برمی‌گرداند
+}
 
 
 function connetion(){
