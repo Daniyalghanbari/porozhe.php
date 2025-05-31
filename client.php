@@ -1,4 +1,4 @@
-
+ 
 
 
 <!DOCTYPE html>
@@ -39,26 +39,32 @@
        $connection = connetion();
        $blogs = select($connection,"SELECT * FROM `blogs`;");
 
-
      foreach($blogs as $blog){
        $id = $blog['id'];
        $title = $blog['title'];
        $description = $blog['description'];
-
+       $shortText = truncateWords($description, 50); 
+ 
        echo "
-       <div class='card'>
-       <div class='card-body login-card-body'>
-             <table>
-             <th>$title</th>
-               <tr>
-               <th>$description</th>
-               </tr>
-               </tr>
-               </div>
-               </table>
-               </div>
-             </div>
-             ";
+       <div class='card text-center'>
+       <div class='card-header'>
+       $id مقاله
+       </div>
+       <div class='card-body'>
+         <h5 class='card-title'>$title</h5>
+         <p class='card-text'>$shortText </p>
+      
+       <form action='showBlog.php' method='post'>
+       <input type='hidden' name='id' value='$id'>
+       <button type='submit' class='btn btn-primary  btn-block btn-flat'>نمایش مقاله</button>
+       </form>
+
+       </div>
+       <div class='card-footer text-muted'>
+          $id days ago
+       </div>
+     </div>
+      ";
      }
   
    ?>
