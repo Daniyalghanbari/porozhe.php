@@ -1,6 +1,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +34,12 @@
     <a href="../../index2.html"><b>ثبت نام</b></a>
   </div>
   <!-- /.login-logo -->
-
+  <?php
+  if (isset($_SESSION['error'])) {
+      echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['error'] . "</div>";
+      unset($_SESSION['error']); 
+  }
+  ?>
 
   <div class="card">
     <div class="card-body login-card-body">
