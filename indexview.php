@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,23 +155,7 @@ lable {
                 <li class="nav-item">
                   <a href="./index.html" class="nav-link active">
                     <i class="fa fa-circle-o nav-icon"></i>
-                    <p>ایجاد</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./index.html" class="nav-link ">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>ویرایش</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./index.html" class="nav-link ">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>نمایش</p>
+                    <p>عملیات</p>
                   </a>
                 </li>
               </ul>
@@ -208,9 +194,23 @@ lable {
 
         <div class="login-box">
           <div class="login-logo">
-            <a href="../../index2.html"><b>ایجاد مقاله</b></a>
+            <a ><b>ایجاد مقاله</b></a>
           </div>
           <!-- /.login-logo -->
+
+          <?php
+            if (isset($_SESSION['error'])) {
+                echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['error'] . "</div>";
+                unset($_SESSION['error']); 
+            }
+          
+            if (isset($_SESSION['succes'])) {
+                echo "
+                <div class='alert alert-success' role='alert'>" . $_SESSION['succes'] . "</div>";
+                unset($_SESSION['succes']); 
+            }
+            ?>
+
           <div class="card">
             <div class="card-body login-card-body">
         
@@ -294,27 +294,28 @@ echo "
         }
      
       ?>
-
               </div>
               <!-- /.login-card-body -->
             </div>
           </div>
-
-
-          <div class="login-box">
+          <div class="">
             <div class="login-logo">
-              <a href="../../index2.html"><b> نمایش مقاله</b></a>
+              <a ><b> نمایش مقاله</b></a>
             </div>
-            <!-- /.login-logo -->
+
             <div class="card">
               <div class="card-body login-card-body">
-                    <table  >
-                    <tr>
-                    <th>action</th>
-                    <th>description</th>
-                    <th>title</th>
-                    <th>id</th>
-                    </tr>
+              <table id="example2" class="table table-bordered table-hover dataTable" role="grid">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="موتور رندر: activate to sort column descending">عملیات</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending">توضیحات</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="سیستم عامل: activate to sort column ascending">عنوان </th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ورژن: activate to sort column ascending">شناسه</th>
+                </tr>
+                </thead>
+                <tbody>
+          
           <?php 
      
         $connection = connetion();
@@ -329,7 +330,6 @@ echo "
 
           echo "
                   <tr>
-
                       <th>
                       <form action='delete.php' method='post'>
                       <input type='hidden' name='id' value='$id'>
@@ -337,15 +337,21 @@ echo "
                       </form>
                       
                       </th>
-                  <th>$description</th>
-                  <th>$title</th>
                   <th>$id</th>
+                  <th>$title</th>
+                  <th>$description</th>
                   </tr>
                 ";
         }
      
       ?>
-                    </table>
+
+                    
+</tbody>
+                <tfoot>               
+              </tfoot>
+              </table>
+                 
               </div>
               <!-- /.login-card-body -->
             </div>
